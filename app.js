@@ -18,18 +18,18 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/', (_, res) => {
+app.get('/', (req, res) => {
 	res.redirect('https://archlinux.org/');
 });
 
 app.use('/api/users', usersRouter);
 app.use('/api/pets', isValidToken, petsRouter);
 
-app.use((_, res) => {
+app.use((req, res) => {
 	res.status(404).json({ message: 'Not found' });
 });
 
-app.use((err, _, res, next) => {
+app.use((err, req, res, next) => {
 	const { status = 500, message = 'server error' } = err;
 	res.status(status).json({ message });
 });
