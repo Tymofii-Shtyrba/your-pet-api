@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const swaggerDocument = require('./swagger.json');
 const { usersRouter, petsRouter } = require('./routes');
-const { isValidToken, isValidUserBody } = require('./middlewares');
+const { isValidToken } = require('./middlewares');
 
 const app = express();
 
@@ -18,18 +18,18 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
 	res.redirect('https://archlinux.org/');
 });
 
 app.use('/api/users', usersRouter);
 app.use('/api/pets', isValidToken, petsRouter);
 
-app.use((req, res) => {
+app.use((_, res) => {
 	res.status(404).json({ message: 'Not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _, res, next) => {
 	const { status = 500, message = 'server error' } = err;
 	res.status(status).json({ message });
 });
