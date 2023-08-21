@@ -32,9 +32,7 @@ const register = async (req, res, next) => {
 			avatarURL: null,
 			verificationToken,
 		});
-		res
-			.status(201)
-			.json({ user: { email, subscription: newUser.subscription } });
+		res.status(201).json({ message: 'New account created' });
 	} catch (error) {
 		next(error);
 	}

@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const swaggerDocument = require('./swagger.json');
 const { usersRouter, petsRouter } = require('./routes');
-const { isValidToken, isValidUserBody } = require('./middlewares');
+const { isValidToken } = require('./middlewares');
 
 const app = express();
 

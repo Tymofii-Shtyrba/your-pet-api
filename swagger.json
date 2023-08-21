@@ -1,8 +1,79 @@
 {
-  "openapi":"3.1.0",
-  "info":{
-    "version":"1.0",
-    "title":"Your Pets API",
-    "description":"Swagger documentation for Your Pets API"
-  }
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Your Pets API",
+		"description": "Swagger documentation for Your Pets API",
+		"version": "1.0"
+	},
+  "tags": [
+    {
+      "name": "Users",
+    "description": "Endpoints for work with users information"
+    }
+  ],
+	"servers": [{ "url": "https://your-pet-api-a9zk.onrender.com" }],
+	"paths": {
+		"/api/users/register": {
+			"post": {
+				"tags": ["Users"],
+				"summary": "Creates a new user",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Resistration"
+              }
+            }
+					}
+				},
+        "responses": {
+          "201":{
+            "description": "New account created"
+          },
+          "400":{
+            "description": "Bad reques"
+          },
+          "409":{
+            "description": "Such user already exist"
+          },
+          "500":{
+            "description": "Server error"
+          }
+        }
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Resistration": {
+				"type": "object",
+				"required": ["name", "email", "password"],
+				"properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John Dou"
+          },
+					"email": {
+						"type": "string",
+						"description": "User's email",
+						"format": "email"
+					},
+          "password":{
+            "type": "string",
+            "description": "User's password",
+            "exemple":"qwerty1234"
+          }
+				}
+			}
+    },
+    "securitySchemes": {
+      "bearerAuth":{
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+	}
 }
