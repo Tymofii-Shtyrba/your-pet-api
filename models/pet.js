@@ -1,61 +1,87 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
-const { handleMongooseError } = require("../helpers");
+const { handleMongooseError } = require('../helpers');
+const { validateDate } = require('../middlewares');
 
 const petSchema = new Schema(
   {
-    chooseOption: {
+    category: {
       type: String,
-      enum: ["your pet", "sell", "lost/found", "in good hands"],
-      required: [true, "Please choose a valid option for chooseOption"],
+      enum: ['your pet', 'sell', 'lost/found', 'in good hands'],
+      required: [true, 'Please choose a valid option for chooseOption'],
     },
 
-    titleOfAdd: {
+    name: {
       type: String,
+      required: [true, 'The name of the pet is required'],
+      minLength: 2,
+      maxLength: 16,
     },
 
-    petsName: {
+    date: {
       type: String,
+      required: true,
+      validate: [
+        validateDate,
+        'Invalid date format. Please use "DD-MM-YYYY" format.',
+      ],
     },
 
-    dateOfBirth: {
-      type: Date,
+    type: {
+      type: String,
+      required: [true, 'The type of the pet is required'],
+      minLength: 2,
+      maxLength: 16,
     },
 
-    typeOfPet: {
+    file: {
       type: String,
-      required: [true, "The type of the pet is required"],
+      // додати валідацію файлу - обовʼязковe, обʼємом до 3Мб
     },
 
-    petsImage: {
+    sex: {
       type: String,
-    },
-
-    theSex: {
-      type: String,
-      enum: ["female", "male"],
-      required: [true, "The sex of the pet is required"],
+      enum: ['female', 'male'],
+      required: [true, 'The sex of the pet is required'],
     },
 
     location: {
       type: String,
-      required: [true, "Location is required for the pet"],
+      required: function () {
+        const value = this.category;
+
+        if (value === 'your pet') {
+          return false;
+        }
+        return true;
+      },
     },
 
     price: {
       type: Number,
-      required: [true, "price is required"],
+      required: function () {
+        return this.category === 'sell';
+      },
+      validate: [
+        {
+          validator: function (value) {
+            return !(this.category === 'sell' && (isNaN(value) || value <= 0));
+          },
+          message:
+            'For the "sell" category, price must be a number greater than 0.',
+        },
+      ],
     },
 
     comments: {
       type: String,
       minLength: 10,
-      maxLength: 300,
+      maxLength: 120,
     },
 
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: 'user',
       required: true,
     },
   },
@@ -63,8 +89,8 @@ const petSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-petSchema.post("save", handleMongooseError);
+petSchema.post('save', handleMongooseError);
 
-const Pet = model("pet", petSchema);
+const Pet = model('pet', petSchema);
 
 module.exports = Pet;
