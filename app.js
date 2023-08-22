@@ -4,9 +4,10 @@ const logger = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 
-const swaggerDocument = require("./swagger.json");
-const { usersRouter, petsRouter } = require("./routes");
-const { isValidToken, isValidUserBody } = require("./middlewares");
+
+const swaggerDocument = require('./swagger.json');
+const { usersRouter, petsRouter } = require('./routes');
+const { isValidToken } = require('./middlewares');
 
 const app = express();
 
