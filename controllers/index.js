@@ -1,3 +1,15 @@
-const register = require('./register');
+const register = require("./register");
+const login = require("./login");
+const logout = require("./logout");
+const addPet = require("./addPet");
+const deletePetById = require("./deletePetById");
+const updatePetById = require("./updatePetById");
 
-module.exports = { register };
+module.exports = {
+  register,
+  login,
+  logout,
+  addPet,
+  deletePetById,
+  updatePetById,
+};
