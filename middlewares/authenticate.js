@@ -1,14 +1,14 @@
-const jwt = require('jsonwebtoken');
-const { User } = require('../models');
-const createError = require('http-errors');
+const jwt = require("jsonwebtoken");
+const { User } = require("../models");
+const createError = require("http-errors");
 
 const { SECRET_KEY } = process.env;
 
 const authenticate = async (req, res, next) => {
-  const { authorization = '' } = req.headers;
-  const [bearer, token] = authorization.split(' ');
+  const { authorization = "" } = req.headers;
+  const [bearer, token] = authorization.split(" ");
 
-  if (bearer !== 'Bearer' || !token) {
+  if (bearer !== "Bearer" || !token) {
     return next(createError(401));
   }
 

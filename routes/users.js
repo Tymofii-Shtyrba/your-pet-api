@@ -1,16 +1,16 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const { register, login, logout } = require('../controllers');
+const { register, login, logout } = require("../controllers");
 const {
   isValidUserBody,
   isValidLoginData,
   authenticate,
-} = require('../middlewares');
+} = require("../middlewares");
 
-router.post('/register', isValidUserBody, register);
+router.post("/register", isValidUserBody, register);
 
-router.post('/login', isValidLoginData, login);
+router.post("/login", isValidLoginData, login);
 
-router.post('/logout', authenticate, logout);
+router.post("/logout", authenticate, logout);
 
 module.exports = router;
