@@ -1,4 +1,3 @@
-const User = require("./user");
-const Pat = require("./pet");
+const User = require('./user');
 
-module.exports = { User, Pat };
+module.exports = { User };

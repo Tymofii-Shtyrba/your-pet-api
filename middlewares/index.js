@@ -1,11 +1,4 @@
-const isValidToken = require("./tokenValidator");
-const isValidUserBody = require("./userBodyValidator");
-const isValidLoginData = require("./isValidLoginData");
-const authenticate = require("./authenticate");
+const isValidToken = require('./tokenValidator');
+const isValidUserBody = require('./userBodyValidator');
 
-module.exports = {
-  isValidToken,
-  isValidUserBody,
-  isValidLoginData,
-  authenticate,
-};
+module.exports = { isValidToken, isValidUserBody };
