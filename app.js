@@ -5,8 +5,9 @@ const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 
 const swaggerDocument = require('./swagger.json');
+
 const { usersRouter, petsRouter } = require('./routes');
-const { isValidToken } = require('./middlewares');
+const { upload } = require('./middlewares');
 
 const app = express();
 
@@ -18,12 +19,12 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/', (req, res) => {
-	res.redirect('https://archlinux.org/');
+app.post('/', upload.single('image'), (req, res) => {
+	res.status(200);
 });
 
 app.use('/api/users', usersRouter);
-app.use('/api/pets', isValidToken, petsRouter);
+app.use('/api/pets', petsRouter);
 
 app.use((req, res) => {
 	res.status(404).json({ message: 'Not found' });

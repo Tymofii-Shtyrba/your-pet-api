@@ -1,14 +1,14 @@
 const createError = require('http-errors');
 const { User } = require('../models');
-const { v4: uuidv4 } = require('uuid');
-const sgMail = require('@sendgrid/mail');
+// const { v4: uuidv4 } = require('uuid');
+// const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcryptjs');
 
-const createLetter = require('../templates/letter');
+// const createLetter = require('../templates/letter');
 
-const { SENDGRID_API_KEY } = process.env;
+// const { SENDGRID_API_KEY } = process.env;
 
-sgMail.setApiKey(SENDGRID_API_KEY);
+// sgMail.setApiKey(SENDGRID_API_KEY);
 
 const register = async (req, res, next) => {
 	const { email, password, name } = req.body;
@@ -22,15 +22,11 @@ const register = async (req, res, next) => {
 
 		const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-		const verificationToken = uuidv4();
-		await sgMail.send(createLetter(email, verificationToken));
-
-		const newUser = await User.create({
+		await User.create({
 			name,
 			email,
 			password: hashPassword,
 			avatarURL: null,
-			verificationToken,
 		});
 		res.status(201).json({ message: 'New account created' });
 	} catch (error) {
