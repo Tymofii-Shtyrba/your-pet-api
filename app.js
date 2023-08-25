@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const swaggerDocument = require('./swagger.json');
 
-const { usersRouter, petsRouter } = require('./routes');
+const { usersRouter, petsRouter, noticesRouter } = require('./routes');
 const { upload } = require('./middlewares');
 
 const app = express();
@@ -25,6 +25,7 @@ app.post('/', upload.single('image'), (req, res) => {
 
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);
+app.use('/api/notices', noticesRouter);
 
 app.use((req, res) => {
 	res.status(404).json({ message: 'Not found' });
