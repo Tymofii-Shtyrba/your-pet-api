@@ -9,7 +9,7 @@ const schema = new Joi.object({
   file: Joi.string(),
   sex: Joi.string().required(),
   location: Joi.string(),
-  price: Joi.number(),
+  price: Joi.number().allow(null),
   comments: Joi.string(),
 });
 
