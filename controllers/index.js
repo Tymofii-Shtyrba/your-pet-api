@@ -5,6 +5,9 @@ const addPet = require("./addPet");
 const deletePetById = require("./deletePetById");
 const updatePetById = require("./updatePetById");
 const getUserOwnedPets = require("./getUserOwnedPets");
+const getAllPets = require("./getAllPets");
+const getPetById = require("./getPetById");
+const searchPets = require("./searchPets");
 
 module.exports = {
   register,
@@ -14,4 +17,7 @@ module.exports = {
   deletePetById,
   updatePetById,
   getUserOwnedPets,
+  getAllPets,
+  getPetById,
+  searchPets,
 };

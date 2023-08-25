@@ -5,6 +5,8 @@ const {
   deletePetById,
   updatePetById,
   getUserOwnedPets,
+  getAllPets,
+  getPetById,
 } = require("../controllers");
 
 const {
@@ -13,6 +15,10 @@ const {
   isValidId,
   isValidUserId,
 } = require("../middlewares");
+
+router.get("/", getAllPets);
+
+router.get("/:petId", getPetById);
 
 router.post("/", isValidToken, isValidPetsBody, addPet);
 
