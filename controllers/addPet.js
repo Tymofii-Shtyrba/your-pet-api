@@ -1,4 +1,4 @@
-const { Pet } = require("../models");
+const { Pet } = require('../models');
 
 const addPet = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const addPet = async (req, res) => {
     res.status(201).json(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const { User } = require("../models");
+const { User } = require('../models');
 
 const getUserOwnedPets = (req, res) => {
   const userObjectId = new mongoose.Types.ObjectId(req.params.userId);
@@ -9,10 +9,10 @@ const getUserOwnedPets = (req, res) => {
     { $match: { _id: userObjectId } },
     {
       $lookup: {
-        from: "pets",
-        localField: "_id",
-        foreignField: "owner",
-        as: "pets",
+        from: 'pets',
+        localField: '_id',
+        foreignField: 'owner',
+        as: 'pets',
       },
     },
   ])
@@ -21,7 +21,7 @@ const getUserOwnedPets = (req, res) => {
     })
     .catch(() => {
       res.status(500).json({
-        error: "An error occurred while fetching user and pets data.",
+        error: 'An error occurred while fetching user and pets data.',
       });
     });
 };

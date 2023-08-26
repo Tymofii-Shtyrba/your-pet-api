@@ -1,31 +1,31 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
 const {
   addPet,
   deletePetById,
-  updatePetById,
   getUserOwnedPets,
   getAllPets,
   getPetById,
-} = require("../controllers");
+  searchPets,
+} = require('../controllers');
 
 const {
   isValidPetsBody,
   isValidToken,
   isValidId,
   isValidUserId,
-} = require("../middlewares");
+} = require('../middlewares');
 
-router.get("/", getAllPets);
+router.get('/all', getAllPets);
 
-router.get("/:petId", getPetById);
+router.get('/search', searchPets);
 
-router.post("/", isValidToken, isValidPetsBody, addPet);
+router.post('/', isValidToken, isValidPetsBody, addPet);
 
-router.delete("/:petId", isValidToken, isValidId, deletePetById);
+router.get('/:petId', getPetById);
 
-router.put("/:petId", isValidToken, isValidId, isValidPetsBody, updatePetById);
+router.delete('/:petId', isValidToken, isValidId, deletePetById);
 
-router.get("/:userId", isValidToken, isValidUserId, getUserOwnedPets);
+router.get('/:userId', isValidToken, isValidUserId, getUserOwnedPets);
 
 module.exports = router;

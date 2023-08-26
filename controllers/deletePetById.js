@@ -1,6 +1,6 @@
-const { Pet } = require("../models");
+const { Pet } = require('../models');
 
-const createError = require("http-errors");
+const createError = require('http-errors');
 
 const deletePetById = async (req, res) => {
   const { petId } = req.params;

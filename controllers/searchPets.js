@@ -1,6 +1,6 @@
-const moment = require("moment");
-const { Pet } = require("../models");
-const createError = require("http-errors");
+const moment = require('moment');
+const { Pet } = require('../models');
+const createError = require('http-errors');
 
 const searchPets = async (req, res, next) => {
   try {
@@ -14,20 +14,19 @@ const searchPets = async (req, res, next) => {
 
     if (date) {
       const currentDate = moment();
-      const petBirthdate = moment(date);
-      const ageInYears = currentDate.diff(petBirthdate, "years");
-
-      if (ageInYears === 0) {
-        conditions.date = { $gte: petBirthdate.startOf("day").toDate() };
-      } else if (ageInYears === 1) {
+      if (date === 'lessThan1') {
+        const oneYearAgo = currentDate.clone().subtract(1, 'year');
+        conditions.date = { $gte: oneYearAgo.toDate() };
+      } else if (date === '1to2') {
+        const twoYearsAgo = currentDate.clone().subtract(2, 'years');
+        const oneYearAgo = currentDate.clone().subtract(1, 'year');
         conditions.date = {
-          $gte: petBirthdate.startOf("day").subtract(1, "year").toDate(),
-          $lt: petBirthdate.startOf("day").toDate(),
+          $lt: oneYearAgo.toDate(),
+          $gte: twoYearsAgo.toDate(),
         };
-      } else if (ageInYears > 1) {
-        conditions.date = {
-          $lt: petBirthdate.startOf("day").subtract(1, "year").toDate(),
-        };
+      } else if (date === 'moreThan2') {
+        const twoYearsAgo = currentDate.clone().subtract(2, 'years');
+        conditions.date = { $lt: twoYearsAgo.toDate() };
       }
     }
 
@@ -38,7 +37,7 @@ const searchPets = async (req, res, next) => {
     const result = await Pet.find(conditions).exec();
 
     if (result.length === 0) {
-      next(createError(404, "No pets found"));
+      return next(createError(404, 'No pets found'));
     }
 
     res.status(200).json(result);

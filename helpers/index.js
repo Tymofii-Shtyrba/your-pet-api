@@ -1,3 +1,3 @@
-const handleMongooseError = require("./handleMongooseError");
+const handleMongooseError = require('./handleMongooseError');
 
 module.exports = { handleMongooseError };

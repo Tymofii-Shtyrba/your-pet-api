@@ -1,6 +1,6 @@
-const { isValidObjectId } = require("mongoose");
+const { isValidObjectId } = require('mongoose');
 
-const createError = require("http-errors");
+const createError = require('http-errors');
 
 const isValidUserId = (req, res, next) => {
   const { userId } = req.params;
