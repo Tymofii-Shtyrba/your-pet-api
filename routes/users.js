@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { register, login, updateUserById, logout } = require('../controllers');
+const { register, login, updateUser, logout } = require('../controllers');
 const {
   isValidUserBody,
   isValidUserUpdateBody,
@@ -12,7 +12,7 @@ router.post('/register', isValidUserBody, register);
 
 router.post('/login', isValidLoginData, login);
 
-router.put('/update', isValidToken, isValidUserUpdateBody, updateUserById);
+router.patch('/update', isValidToken, isValidUserUpdateBody, updateUser);
 
 router.post('/logout', isValidToken, logout);
 

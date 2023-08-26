@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const schema = new Joi.object({
   name: Joi.string().min(2).max(16),
   email: Joi.string().email(),
+  password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/),
   birthday: Joi.string().pattern(/^\d{2}\.\d{2}\.\d{4}$/),
   phone: Joi.string().pattern(/^\+\d{12}$/),
   city: Joi.string().min(2).max(16),

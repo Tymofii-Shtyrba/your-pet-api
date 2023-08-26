@@ -22,10 +22,10 @@ router.get('/search', searchPets);
 
 router.post('/', isValidToken, isValidPetsBody, addPet);
 
+router.get('/:userId', isValidToken, isValidUserId, getUserOwnedPets);
+
 router.get('/:petId', getPetById);
 
 router.delete('/:petId', isValidToken, isValidId, deletePetById);
-
-router.get('/:userId', isValidToken, isValidUserId, getUserOwnedPets);
 
 module.exports = router;
