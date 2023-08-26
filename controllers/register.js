@@ -11,27 +11,29 @@ const bcrypt = require('bcryptjs');
 // sgMail.setApiKey(SENDGRID_API_KEY);
 
 const register = async (req, res, next) => {
-  const { email, password, name } = req.body;
 
-  try {
-    const existUser = await User.findOne({ email });
+	const { email, password, name } = req.body;
 
-    if (existUser) {
-      throw createError(409);
-    }
+	try {
+		const existUser = await User.findOne({ email });
 
-    const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+		if (existUser) {
+			throw createError(409, 'Conflict');
+		}
 
-    await User.create({
-      name,
-      email,
-      password: hashPassword,
-      avatarURL: null,
-    });
-    res.status(201).json({ message: 'New account created' });
-  } catch (error) {
-    next(error);
-  }
+		const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+
+		await User.create({
+			name,
+			email,
+			password: hashPassword,
+			avatarURL: null,
+		});
+		res.status(201).json({ message: 'New account created' });
+	} catch (error) {
+		next(error);
+	}
+
 };
 
 module.exports = register;
