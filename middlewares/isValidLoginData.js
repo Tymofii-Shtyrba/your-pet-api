@@ -1,5 +1,5 @@
-const Joi = require("joi");
-const createError = require("http-errors");
+const Joi = require('joi');
+const createError = require('http-errors');
 
 const schema = new Joi.object({
   email: Joi.string().required(),

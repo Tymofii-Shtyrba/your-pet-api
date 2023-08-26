@@ -1,79 +1,176 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"title": "Your Pets API",
-		"description": "Swagger documentation for Your Pets API",
-		"version": "1.0"
-	},
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Your Pets API",
+    "description": "Swagger documentation for Your Pets API",
+    "version": "1.0"
+  },
   "tags": [
     {
       "name": "Users",
-    "description": "Endpoints for work with users information"
+      "description": "Endpoints for work with users information"
     }
   ],
-	"servers": [{ "url": "https://your-pet-api-a9zk.onrender.com" }],
-	"paths": {
-		"/api/users/register": {
-			"post": {
-				"tags": ["Users"],
-				"summary": "Creates a new user",
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
+  "servers": [{ "url": "https://your-pet-api-a9zk.onrender.com" }],
+
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Creates a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Resistration"
+                "$ref": "#/components/schemas/Registration"
               }
             }
-					}
-				},
+          }
+        },
         "responses": {
-          "201":{
+          "201": {
             "description": "New account created"
           },
-          "400":{
-            "description": "Bad reques"
+          "400": {
+            "description": "Bad request"
           },
-          "409":{
+          "409": {
             "description": "Such user already exist"
           },
-          "500":{
+          "500": {
             "description": "Server error"
           }
         }
-			}
-		}
-	},
-	"components": {
-		"schemas": {
-			"Resistration": {
-				"type": "object",
-				"required": ["name", "email", "password"],
-				"properties": {
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Authenticates a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Authenticate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User is authenticated"
+          },
+          "401": {
+            "description": "User is unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Succes logout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Logout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succes logout"
+          },
+          "401": {
+            "description": "User is unauthorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Registration": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
           "name": {
             "type": "string",
             "description": "User's name",
             "example": "John Dou"
           },
-					"email": {
-						"type": "string",
-						"description": "User's email",
-						"format": "email"
-					},
-          "password":{
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
             "type": "string",
             "description": "User's password",
-            "exemple":"qwerty1234"
+            "example": "qwerty1234"
           }
-				}
-			}
+        }
+      },
+      "Authenticate": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty1234"
+          }
+        }
+      },
+      "Logout": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty1234"
+          }
+        },
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
     },
     "securitySchemes": {
-      "bearerAuth":{
+      "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
-	}
+  }
 }

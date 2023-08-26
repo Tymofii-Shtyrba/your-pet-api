@@ -11,6 +11,7 @@ const bcrypt = require('bcryptjs');
 // sgMail.setApiKey(SENDGRID_API_KEY);
 
 const register = async (req, res, next) => {
+
 	const { email, password, name } = req.body;
 
 	try {
@@ -32,6 +33,7 @@ const register = async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
+
 };
 
 module.exports = register;
