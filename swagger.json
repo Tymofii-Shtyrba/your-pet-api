@@ -1,79 +1,419 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"title": "Your Pets API",
-		"description": "Swagger documentation for Your Pets API",
-		"version": "1.0"
-	},
-  "tags": [
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.1.19",
+    "title": "Your Pets API",
+    "description": "Swagger documentation for Your Pets API."
+  },
+  "servers": [
     {
-      "name": "Users",
-    "description": "Endpoints for work with users information"
+      "url": "https://your-pet-api-a9zk.onrender.com"
     }
   ],
-	"servers": [{ "url": "https://your-pet-api-a9zk.onrender.com" }],
-	"paths": {
-		"/api/users/register": {
-			"post": {
-				"tags": ["Users"],
-				"summary": "Creates a new user",
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
+  "tags": [
+    {
+      "name": "User",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Registration",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Resistration"
+                "$ref": "#/components/schemas/RegistrationRequest"
               }
             }
-					}
-				},
+          }
+        },
         "responses": {
-          "201":{
-            "description": "New account created"
+          "201": {
+            "description": "Registration endpoints",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
           },
-          "400":{
-            "description": "Bad reques"
+          "400": {
+            "description": "Validation error"
           },
-          "409":{
-            "description": "Such user already exist"
-          },
-          "500":{
-            "description": "Server error"
+          "409": {
+            "description": "Conflict"
           }
         }
-			}
-		}
-	},
-	"components": {
-		"schemas": {
-			"Resistration": {
-				"type": "object",
-				"required": ["name", "email", "password"],
-				"properties": {
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Login",
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns user email and token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Logout",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/pets": {
+      "post": {
+        "tags": [
+          "Pets"
+        ],
+        "summary": "Add your pet",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PetsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return add pet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/pets/{petId}": {
+      "delete": {
+        "tags": [
+          "Pets"
+        ],
+        "summary": "Delete pet by authorized user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "petId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete success"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pets"
+        ],
+        "summary": "Update your pet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "petId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return add pet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PetsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
           "name": {
             "type": "string",
-            "description": "User's name",
-            "example": "John Dou"
+            "minLength": 2,
+            "maxLength": 16
           },
-					"email": {
-						"type": "string",
-						"description": "User's email",
-						"format": "email"
-					},
-          "password":{
+          "email": {
             "type": "string",
-            "description": "User's password",
-            "exemple":"qwerty1234"
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": "Qwerty123",
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,16}$/"
           }
-				}
-			}
+        }
+      },
+      "RegistrationResponse": {
+        "type": "string",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "message": "New account created"
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": "Qwerty123",
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,16}$/"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+          "user": {
+            "email": "user@example.com"
+          }
+        }
+      },
+      "PetsRequest": {
+        "type": "object",
+        "required": [
+          "category",
+          "name",
+          "date",
+          "type",
+          "sex"
+        ],
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16
+          },
+          "date": {
+            "type": "string",
+            "default": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16
+          },
+          "sex": {
+            "type": "string"
+          }
+        }
+      },
+      "PetsResponse": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16
+          },
+          "date": {
+            "type": "string",
+            "default": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16
+          },
+          "sex": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "integer",
+            "minLength": 10,
+            "maxLength": 120
+          },
+          "owner": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category": "your pet",
+          "name": "Gery",
+          "date": "04.08.2022",
+          "type": "shnaucer",
+          "comments": "dog very smile",
+          "sex": "male",
+          "location": "odesa",
+          "price": 300,
+          "file": "https://.......",
+          "owner": "5824685923c2565f88a0a3e3",
+          "_id": "5824685923c2565f88a0a3e3"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
     },
     "securitySchemes": {
-      "bearerAuth":{
+      "Bearer": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
-	}
+  }
 }
