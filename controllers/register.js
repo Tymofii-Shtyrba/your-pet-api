@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
 		const existUser = await User.findOne({ email });
 
 		if (existUser) {
-			throw createError(409);
+			throw createError(409, 'Conflict');
 		}
 
 		const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
