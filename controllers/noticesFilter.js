@@ -1,8 +1,9 @@
 const moment = require('moment');
-const { Pet } = require('../models');
+const { Notice } = require('../models');
+
 const createError = require('http-errors');
 
-const searchPets = async (req, res, next) => {
+const noticeFilter = async (req, res, next) => {
   try {
     const { category, date, sex } = req.query;
 
@@ -34,7 +35,7 @@ const searchPets = async (req, res, next) => {
       conditions.sex = sex;
     }
 
-    const result = await Pet.find(conditions).exec();
+    const result = await Notice.find(conditions).exec();
 
     if (result.length === 0) {
       return next(createError(404, 'No pets found'));
@@ -46,4 +47,4 @@ const searchPets = async (req, res, next) => {
   }
 };
 
-module.exports = searchPets;
+module.exports = noticeFilter;

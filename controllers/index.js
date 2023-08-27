@@ -7,8 +7,10 @@ const deletePetById = require('./deletePetById');
 const getUserOwnedPets = require('./getUserOwnedPets');
 const getAllPets = require('./getAllPets');
 const getPetById = require('./getPetById');
-const searchPets = require('./searchPets');
+const noticesFilter = require('./noticesFilter');
 const updateAvatar = require('./updateAvatar');
+const noticeDelete = require('./noticeDelete');
+const getNoticeById = require('./getNoticeById');
 
 module.exports = {
   register,
@@ -20,6 +22,8 @@ module.exports = {
   getUserOwnedPets,
   getAllPets,
   getPetById,
-  searchPets,
+  noticesFilter,
+  noticeDelete,
+  getNoticeById,
   updateAvatar,
 };
