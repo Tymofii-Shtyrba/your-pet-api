@@ -20,7 +20,8 @@ const userSchema = new Schema(
       default: null,
     },
     birthday: {
-      type: String,
+      type: Date,
+      default: null,
     },
 
     phone: {
@@ -29,9 +30,17 @@ const userSchema = new Schema(
 
     city: {
       type: String,
+      default: null,
     },
 
-    avatarURL: String,
+    avatarURL: {
+      type: String,
+      default: null,
+    },
+    favorites: {
+      type: Array,
+      defaultL: [],
+    },
     // verify: {
     // 	type: Boolean,
     // 	default: false,
