@@ -8,6 +8,7 @@ const getUserOwnedPets = require('./getUserOwnedPets');
 const getAllPets = require('./getAllPets');
 const getPetById = require('./getPetById');
 const searchPets = require('./searchPets');
+const updateAvatar = require('./updateAvatar');
 
 module.exports = {
   register,
@@ -20,4 +21,5 @@ module.exports = {
   getAllPets,
   getPetById,
   searchPets,
+  updateAvatar,
 };

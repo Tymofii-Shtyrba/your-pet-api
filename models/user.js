@@ -37,6 +37,10 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    avatarPublicId: {
+      type: String,
+      default: null,
+    },
     favorites: {
       type: Array,
       defaultL: [],
