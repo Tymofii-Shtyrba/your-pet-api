@@ -4,14 +4,16 @@ const { Pet } = require('../../models');
 
 const currentUser = async (req, res, next) => {
   try {
-    const { id } = req.user.id;
+    const { email, _id } = req.user;
+    console.log(email);
 
-    const userInfo = await User.findById(id);
+    const userInfo = await User.findById(_id);
+    console.log(userInfo);
     if (!userInfo) {
       throw createError(404, 'User not fund');
     }
 
-    const petsInfo = await Pet.find({ owner: id }).sort({ createdAt: -1 });
+    const petsInfo = await Pet.find({ owner: _id }).sort({ createdAt: -1 });
 
     res.status(200).json({ userInfo, petsInfo });
   } catch (error){
