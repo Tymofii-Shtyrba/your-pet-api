@@ -7,8 +7,6 @@ const jwt = require('jsonwebtoken');
 
 const { SECRET_KEY } = process.env;
 
-
-
 // const createLetter = require('../templates/letter');
 
 // const { SENDGRID_API_KEY } = process.env;
@@ -31,16 +29,18 @@ const register = async (req, res, next) => {
       name,
       email,
       password: hashPassword,
-      avatarURL: null,
     });
-        const token = jwt.sign(user._id, SECRET_KEY, { expiresIn: '23h' });
 
-    res.status(201).json({ 
+    const token = jwt.sign({ user: user._id }, SECRET_KEY, {
+      expiresIn: '23h',
+    });
+    res.status(201).json({
       token,
       user: {
         email: user.email,
       },
-      message: 'New account created' });
+      message: 'New account created',
+    });
   } catch (error) {
     next(error);
   }
