@@ -1,4 +1,4 @@
-const { Pet } = require('../models');
+const { Pet } = require('../../models');
 
 const createError = require('http-errors');
 

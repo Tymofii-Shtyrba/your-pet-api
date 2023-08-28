@@ -6,8 +6,7 @@ const {
   getUserOwnedPets,
   getAllPets,
   getPetById,
-  searchPets,
-} = require('../controllers');
+} = require('../controllers/pets');
 
 const {
   isValidPetsBody,
@@ -17,8 +16,6 @@ const {
 } = require('../middlewares');
 
 router.get('/all', getAllPets);
-
-router.get('/search', searchPets);
 
 router.post('/', isValidToken, isValidPetsBody, addPet);
 

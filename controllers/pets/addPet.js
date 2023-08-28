@@ -1,4 +1,4 @@
-const { Pet } = require('../models');
+const { Pet } = require('../../models');
 
 const addPet = async (req, res) => {
   try {

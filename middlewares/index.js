@@ -6,6 +6,7 @@ const isValidPetsBody = require('./petsBodyValidator');
 const isValidId = require('./isValidId');
 const isValidUserId = require('./isValidUserId');
 const upload = require('./imageUpload');
+const isValidNoticeId = require('./isValidNoticeId');
 
 module.exports = {
   isValidToken,
@@ -15,5 +16,6 @@ module.exports = {
   isValidId,
   isValidUserId,
   isValidUserUpdateBody,
+  isValidNoticeId,
   upload,
 };

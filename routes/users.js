@@ -6,7 +6,7 @@ const {
   updateUser,
   logout,
   updateAvatar,
-} = require('../controllers');
+} = require('../controllers/users');
 
 const {
   isValidUserBody,

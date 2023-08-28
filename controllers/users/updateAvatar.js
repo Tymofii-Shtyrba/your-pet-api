@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
-const cloudinary = require('../cloudinary');
-const { User } = require('../models');
+const cloudinary = require('../../cloudinary');
+const { User } = require('../../models');
 
 const updateAvatar = async (req, res, next) => {
   try {
