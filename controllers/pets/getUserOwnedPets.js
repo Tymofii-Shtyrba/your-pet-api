@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { User } = require('../models');
+const { User } = require('../../models');
 
 const getUserOwnedPets = (req, res) => {
   const userObjectId = new mongoose.Types.ObjectId(req.params.userId);

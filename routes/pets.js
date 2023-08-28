@@ -6,7 +6,7 @@ const {
   getUserOwnedPets,
   getAllPets,
   getPetById,
-} = require('../controllers');
+} = require('../controllers/pets');
 
 const {
   isValidPetsBody,

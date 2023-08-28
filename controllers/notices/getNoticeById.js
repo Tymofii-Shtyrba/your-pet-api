@@ -1,4 +1,4 @@
-const { Notice } = require('../models');
+const { Notice } = require('../../models');
 
 const createError = require('http-errors');
 

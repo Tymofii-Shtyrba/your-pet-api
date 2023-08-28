@@ -1,16 +1,19 @@
 const router = require('express').Router();
 
 const {
-  noticesFilter,
+  getNotices,
   noticeDelete,
   getNoticeById,
-} = require('../controllers');
+  getOwnNotice,
+} = require('../controllers/notices');
 
 const { isValidToken, isValidNoticeId } = require('../middlewares');
 
-router.get('/filter', noticesFilter);
+router.get('/filter', getNotices);
 
 router.get('/:noticeId', getNoticeById);
+
+router.get('/byOwner', isValidToken, getOwnNotice);
 
 router.delete('/:noticeId', isValidToken, isValidNoticeId, noticeDelete);
 
