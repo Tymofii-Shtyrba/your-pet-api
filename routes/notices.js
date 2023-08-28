@@ -9,7 +9,7 @@ const {
 
 const { isValidToken, isValidNoticeId } = require('../middlewares');
 
-router.get('/filter', getNotices);
+router.get('/', getNotices);
 
 router.get('/:noticeId', getNoticeById);
 
