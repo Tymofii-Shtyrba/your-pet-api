@@ -6,7 +6,6 @@ const schema = new Joi.object({
   name: Joi.string().required(),
   date: Joi.string().required(),
   type: Joi.string().required(),
-  file: Joi.string(),
   sex: Joi.string().required(),
   location: Joi.string(),
   price: Joi.number().allow(null),
