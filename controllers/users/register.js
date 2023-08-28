@@ -3,6 +3,11 @@ const { User } = require('../../models');
 // const { v4: uuidv4 } = require('uuid');
 // const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const { SECRET_KEY } = process.env;
+
+
 
 // const createLetter = require('../templates/letter');
 
@@ -22,13 +27,20 @@ const register = async (req, res, next) => {
 
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashPassword,
       avatarURL: null,
     });
-    res.status(201).json({ message: 'New account created' });
+        const token = jwt.sign(user._id, SECRET_KEY, { expiresIn: '23h' });
+
+    res.status(201).json({ 
+      token,
+      user: {
+        email: user.email,
+      },
+      message: 'New account created' });
   } catch (error) {
     next(error);
   }
