@@ -6,6 +6,7 @@ const {
   updateUser,
   logout,
   updateAvatar,
+  currentUser
 } = require('../controllers/users');
 
 const {
@@ -25,5 +26,7 @@ router.patch('/update', isValidToken, isValidUserUpdateBody, updateUser);
 router.post('/logout', isValidToken, logout);
 
 router.post('/avatars', isValidToken, upload.single('avatar'), updateAvatar);
+
+router.get('/current',isValidToken, currentUser)
 
 module.exports = router;
