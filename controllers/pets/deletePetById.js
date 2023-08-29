@@ -1,4 +1,5 @@
 const { Pet } = require('../../models');
+const cloudinary = require('../../cloudinary');
 
 const createError = require('http-errors');
 
@@ -10,6 +11,7 @@ const deletePetById = async (req, res) => {
     createError(404);
   }
 
+  await cloudinary.uploader.destroy(result.publicId);
   res.status(204).send();
 };
 

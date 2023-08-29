@@ -29,9 +29,14 @@ const petSchema = new Schema(
       maxLength: 16,
     },
 
-    file: {
+    imageURL: {
       type: String,
-      // додати валідацію файлу - обовʼязковe, обʼємом до 3Мб
+      default: null,
+    },
+
+    publicId: {
+      type: String,
+      default: null,
     },
 
     sex: {

@@ -10,10 +10,10 @@ const {
   isValidPetsBody,
   isValidToken,
   isValidId,
-  isValidUserId,
+  upload,
 } = require('../middlewares');
 
-router.post('/', isValidToken, isValidPetsBody, addPet);
+router.post('/', isValidToken, upload.single('image'), isValidPetsBody, addPet);
 
 router.get('/', isValidToken, getUserOwnedPets);
 
