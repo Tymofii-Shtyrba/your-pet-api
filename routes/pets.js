@@ -17,6 +17,6 @@ router.post('/', isValidToken, upload.single('image'), isValidPetsBody, addPet);
 
 router.get('/', isValidToken, getUserOwnedPets);
 
-router.delete('/:petId', isValidToken, isValidId, deletePetById);
+router.delete('delete/:petId', isValidToken, isValidId, deletePetById);
 
 module.exports = router;

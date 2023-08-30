@@ -11,16 +11,12 @@ const {
 
 const { isValidToken, isValidNoticeId } = require('../middlewares');
 
+router.get('/byOwner', isValidToken, getOwnNotice);
 router.get('/', getNotices);
 
-router.get('/:noticeId', getNoticeById);
-
-router.get('/byOwner', isValidToken, getOwnNotice);
-
+router.get('/:noticeId', isValidNoticeId, getNoticeById);
 router.delete('/:noticeId', isValidToken, isValidNoticeId, noticeDelete);
-
 router.patch('/add/:noticeId', isValidToken, addNoticeToFavorite);
-
 router.patch('/remove/:noticeId', isValidToken, deleteNoticeFromFavorites);
 
 module.exports = router;

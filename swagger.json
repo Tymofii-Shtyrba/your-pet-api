@@ -74,7 +74,7 @@
     "/api/users/logout": {
       "post": {
         "tags": ["Users"],
-        "summary": "Succes logout",
+        "summary": "Success logout",
         "security": [
           {
             "bearerAuth": []
@@ -92,10 +92,462 @@
         },
         "responses": {
           "200": {
-            "description": "Succes logout"
+            "description": "Logout successful"
           },
           "401": {
-            "description": "User is unauthorized"
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/avatars": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Upload user avatar",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AvatarUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avatarURL": {
+                      "type": "string",
+                      "description": "URL of the updated avatar"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/update": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user information",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User information updated successfully"
+          },
+          "401": {
+            "description": "Unauthorized access. User authentication required"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/users/current": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get current user information",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - current user information"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/pets/": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Success add pet",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - add pet"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Success get own pets",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - get own pets"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/pets/{petId}": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Success delete pet",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success - delete pet"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Success get own pets",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to get",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Success - get own pets"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/notices/byOwner": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Success get owner notice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - get own notice"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Success remove notice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/noticeDelete"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - remove notice"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/notices/delete": {
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Success remove notice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/noticeDelete"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - remove notice"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Success get notices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Success - get notices"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/notices/{noticeId}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Success get notice",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "get notice"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Success - get notice"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/api/notices/add/{noticeId}": {
+      "patch": {
+        "tags": ["Notices"],
+        "summary": "Success add notice to favorite",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "add notes to favorite"
+          }
+        ],
+
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addNoticeToFavorite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - add notice to favirite"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/notices/remove/{noticeId}": {
+      "patch": {
+        "tags": ["Notices"],
+        "summary": "Success remove notice from favorite",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "remove notice from favorites"
+          }
+        ],
+
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteNoticeFromFavorites"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success - add notice to favirite"
+          },
+          "401": {
+            "description": "Unauthorized access"
           },
           "500": {
             "description": "Server error"
@@ -104,6 +556,7 @@
       }
     }
   },
+
   "components": {
     "schemas": {
       "Registration": {
@@ -145,6 +598,131 @@
       },
       "Logout": {
         "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "AvatarUpdate": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "Avatar image file to upload"
+          }
+        },
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "Update": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "Current": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+
+      "AddPet": {
+        "type": "object",
+        "required": ["category", "name", "date", "type", "sex", "owner"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["your pet", "sell", "lost/found", "in good hands"],
+            "description": "Category of the pet",
+            "example": "your pet"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the pet",
+            "example": "Fluffy"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the pet's information",
+            "example": "2023-08-29T12:00:00Z"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the pet",
+            "example": "Dog"
+          },
+          "imageURL": {
+            "type": "string",
+            "description": "URL of the pet's image",
+            "example": "https://example.com/pet-image.jpg"
+          },
+          "publicId": {
+            "type": "string",
+            "description": "Public ID of the pet's image",
+            "example": "abcdef123"
+          },
+          "sex": {
+            "type": "string",
+            "enum": ["female", "male"],
+            "description": "Sex of the pet",
+            "example": "female"
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of the pet",
+            "example": "New York"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price of the pet (applicable for 'sell' category)",
+            "example": 500
+          },
+          "comments": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 120,
+            "description": "Additional comments about the pet",
+            "example": "Very friendly and playful"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the pet's owner (User's ID)",
+            "example": "1234567890abcdef"
+          }
+        },
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+
+      "GetOwnPets": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "DeleteOwnPets": {
+        "type": "object",
         "required": ["email", "password"],
         "properties": {
           "email": {
@@ -158,6 +736,60 @@
             "example": "qwerty1234"
           }
         },
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "GetNotices": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "getNoticeById": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "getOwnNotice": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "noticeDelete": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "addNoticeToFavorite": {
+        "type": "object",
+
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "deleteNoticeFromFavorites": {
+        "type": "object",
+
         "bearerAuth": {
           "type": "http",
           "scheme": "bearer",
