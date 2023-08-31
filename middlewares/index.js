@@ -7,8 +7,10 @@ const isValidId = require('./isValidId');
 const isValidUserId = require('./isValidUserId');
 const upload = require('./imageUpload');
 const isValidNoticeId = require('./isValidNoticeId');
+const isValidToken2 = require('./tokenValidator2');
 
 module.exports = {
+  isValidToken2,
   isValidToken,
   isValidUserBody,
   isValidLoginData,
