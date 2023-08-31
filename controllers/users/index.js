@@ -11,5 +11,5 @@ module.exports = {
   updateUser,
   logout,
   updateAvatar,
-  currentUser
+  currentUser,
 };
