@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const noticeSchema = new Schema(
   {
     owner: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'user',
       required: [true, 'The owner id is required'],
     },
@@ -37,6 +37,12 @@ const noticeSchema = new Schema(
       type: String,
       default: null,
     },
+
+    publicId: {
+      type: String,
+      default: null,
+    },
+
     location: {
       type: String,
       required: [true, 'The location name is required'],

@@ -8,6 +8,7 @@ const isValidUserId = require('./isValidUserId');
 const upload = require('./imageUpload');
 const isValidNoticeId = require('./isValidNoticeId');
 const isValidToken2 = require('./tokenValidator2');
+const isValidNoticeBody = require('./noticeBodyValidator');
 
 module.exports = {
   isValidToken2,
@@ -20,4 +21,5 @@ module.exports = {
   isValidUserUpdateBody,
   isValidNoticeId,
   upload,
+  isValidNoticeBody,
 };
