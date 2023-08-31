@@ -148,7 +148,7 @@ const schema = new Schema(
       default: null,
     },
 
-    comments: {
+    comment: {
       type: String,
       minLength: 10,
       maxLength: 120,
