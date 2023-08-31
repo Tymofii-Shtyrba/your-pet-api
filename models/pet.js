@@ -73,7 +73,7 @@ const { Schema, model } = require('mongoose');
 //       ],
 //     },
 
-//     comments: {
+//     comment: {
 //       type: String,
 //       minLength: 10,
 //       maxLength: 120,
