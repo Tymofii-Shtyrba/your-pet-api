@@ -11,7 +11,11 @@ const deletePetById = async (req, res) => {
     createError(404);
   }
 
-  await cloudinary.uploader.destroy(result.publicId);
+  if (result.publicId) {
+    await cloudinary.uploader.destroy(result.publicId);
+  }
+
+  // await cloudinary.uploader.destroy(result.publicId);
   res.status(204).send();
 };
 
