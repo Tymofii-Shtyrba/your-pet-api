@@ -6,7 +6,7 @@ const { Schema, model } = require('mongoose');
 //   {
 //     category: {
 //       type: String,
-//       enum: ['your pet', 'sell', 'lost/found', 'in good hands'],
+//       enum: ['my-pet', 'sell', 'lost/found', 'in-good-hands'],
 //       required: [true, 'Please choose a valid option for chooseOption'],
 //     },
 
@@ -50,7 +50,7 @@ const { Schema, model } = require('mongoose');
 //       required: function () {
 //         const value = this.category;
 
-//         if (value === 'your pet') {
+//         if (value === 'my-pet') {
 //           return false;
 //         }
 //         return true;
@@ -99,7 +99,7 @@ const schema = new Schema(
   {
     category: {
       type: String,
-      enum: ['your pet', 'sell', 'lost/found', 'in good hands'],
+      enum: ['my-pet', 'sell', 'lost/found', 'in-good-hands'],
       required: [true, 'Please choose a valid option for chooseOption'],
     },
 
