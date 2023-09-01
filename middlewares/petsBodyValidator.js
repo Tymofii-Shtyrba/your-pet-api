@@ -9,7 +9,12 @@ const schema = new Joi.object({
   sex: Joi.string().required(),
   location: Joi.string(),
   price: Joi.number().allow(null),
-  comment: Joi.string(),
+
+  comments: Joi.string(),
+  imageURL: Joi.any(),
+
+ 
+
 });
 
 const isValidPetsBody = (req, res, next) => {
