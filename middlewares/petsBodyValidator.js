@@ -10,7 +10,8 @@ const schema = new Joi.object({
   location: Joi.string(),
   price: Joi.number().allow(null),
   comment: Joi.string(),
-  imageURL: Joi.any(),
+  imageURL: Joi.any(), 
+
 });
 
 const isValidPetsBody = (req, res, next) => {
