@@ -135,7 +135,7 @@ const schema = new Schema(
     sex: {
       type: String,
       enum: ['female', 'male'],
-      required: [true, 'The sex of the pet is required'],
+      required: [false, 'The sex of the pet is not required'],
     },
 
     location: {

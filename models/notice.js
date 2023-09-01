@@ -31,7 +31,7 @@ const noticeSchema = new Schema(
     sex: {
       type: String,
       enum: ['male', 'female'],
-      required: [true, 'The sex of the animal is required'],
+      required: [false, 'The sex of the animal is not required'],
     },
     imageURL: {
       type: String,
