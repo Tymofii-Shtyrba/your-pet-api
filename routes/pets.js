@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const {
-  addPet,
+  // addPet,
   deletePetById,
   getUserOwnedPets,
   addPet2,
@@ -26,7 +26,6 @@ router.post(
 
 router.get('/', isValidToken, getUserOwnedPets);
 
-router.delete('delete/:petId', isValidToken, isValidId, deletePetById);
 router.delete('/:petId', isValidToken, isValidId, deletePetById);
 
 module.exports = router;
