@@ -11,7 +11,7 @@ const schema = new Joi.object({
   type: Joi.string().required(),
   sex: Joi.string().valid('male', 'female').required(),
   location: Joi.string().required(),
-  comment: Joi.string().max(120),
+  comments: Joi.string().max(120),
 });
 
 const isValidNoticeBody = (req, res, next) => {

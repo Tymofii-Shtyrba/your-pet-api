@@ -49,7 +49,7 @@ const noticeSchema = new Schema(
       type: Number,
       default: null,
     },
-    comment: {
+    comments: {
       type: String,
       default: null,
     },

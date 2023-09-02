@@ -7,7 +7,6 @@ const schema = new Joi.object({
   type: Joi.string().required(),
 
   comments: Joi.string().required(),
-
 });
 
 const isValidPetsBody = (req, res, next) => {
