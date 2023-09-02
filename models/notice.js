@@ -9,7 +9,7 @@ const noticeSchema = new Schema(
     },
     category: {
       type: String,
-      enum: ['sell', 'lost/found', 'in-good-hands'],
+      enum: ['sell', 'lost-found', 'in-good-hands'],
       required: [true, 'Please choose a valid option for chooseOption'],
     },
     title: {

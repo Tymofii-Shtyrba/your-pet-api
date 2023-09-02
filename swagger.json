@@ -141,57 +141,51 @@
         }
       }
     },
+
     "/api/users/avatars": {
       "post": {
         "tags": ["Users"],
         "summary": "Upload user avatar",
+        "parameters": [],
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "requestBody": {
+          "description": "User's object",
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "userImgUrl": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
+                "$ref": "#/components/schemas/UploadAvatarRequest"
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Avatar updated successfully",
+          "201": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "avatarURL": {
-                      "type": "string",
-                      "description": "URL of the updated avatar"
-                    }
-                  }
+                  "$ref": "#/components/schemas/UploadAvatarResponse"
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized access"
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
           },
-          "500": {
-            "description": "Server error"
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
           }
         }
       }
     },
+
     "/api/users/update": {
       "patch": {
         "tags": ["Users"],
@@ -683,6 +677,28 @@
           }
         ]
       },
+
+      "UploadAvatarRequest": {
+        "type": "object",
+
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "User's avatar"
+          }
+        }
+      },
+      "UploadAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string"
+                      }
+          
+        }
+      },
+
       "UpdateUserRequest": {
         "type": "object",
         "properties": {
@@ -775,8 +791,8 @@
           "date": {
             "type": "string",
             "format": "date",
-            "description": "Date of the pet's information in DD-MM-YYYY format",
-            "example": "29-08-2023"
+            "description": "Date of the pet's information in YYYY-MM-DD format",
+            "example": "2022-10-10"
           },
           "type": {
             "type": "string",
@@ -794,7 +810,15 @@
       },
       "AddUserPetsResponse": {
         "type": "object",
-        "required": ["name", "date", "type", "comments","imageURL", "publicId", "owner"],
+        "required": [
+          "name",
+          "date",
+          "type",
+          "comments",
+          "imageURL",
+          "publicId",
+          "owner"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -804,8 +828,8 @@
           "date": {
             "type": "string",
             "format": "date",
-            "description": "Date of the pet's information in DD-MM-YYYY format",
-            "example": "29-08-2023"
+            "description": "Date of the pet's information in MM-DD-YYYY format",
+            "example": "07-07-2020"
           },
           "type": {
             "type": "string",
@@ -837,6 +861,7 @@
           }
         }
       },
+
       "AddUserNoticesRequest": {
         "type": "object",
         "required": ["category", "title", "name", "type", "sex", "location"],
@@ -864,9 +889,9 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "description": "Date of the pet's information",
-            "example": "'DD-MM-YYYY'"
+            "example": "'MM-DD-YYYY'"
           },
           "type": {
             "type": "string",
