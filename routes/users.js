@@ -21,11 +21,11 @@ router.post('/register', isValidUserBody, register);
 
 router.post('/login', isValidLoginData, login);
 
-router.patch('/update', isValidToken, isValidUserUpdateBody, updateUser);
+router.post('/update', isValidToken, isValidUserUpdateBody, updateUser);
 
 router.post('/logout', isValidToken, logout);
 
-router.post('/avatars', isValidToken, upload.single('avatar'), updateAvatar);
+router.post('/avatars', isValidToken, upload.single('avatarURL'), updateAvatar);
 
 router.get('/current', isValidToken, currentUser);
 
