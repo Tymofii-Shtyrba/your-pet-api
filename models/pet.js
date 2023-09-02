@@ -32,6 +32,7 @@ const schema = new Schema(
     },
 
     comments: {
+
       type: String,
       minLength: 10,
       maxLength: 120,

@@ -762,6 +762,7 @@
         "required": ["name", "date", "type", "comments"],
         "properties": {
           "image": {
+
             "type": "string",
             "format": "binary",
             "description": "Image file of the pet"
