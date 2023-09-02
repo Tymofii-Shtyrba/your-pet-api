@@ -21,7 +21,7 @@ router.post('/register', isValidUserBody, register);
 
 router.post('/login', isValidLoginData, login);
 
-router.post('/update', isValidToken, isValidUserUpdateBody, updateUser);
+router.patch('/update', isValidToken, isValidUserUpdateBody, updateUser);
 
 router.post('/logout', isValidToken, logout);
 
