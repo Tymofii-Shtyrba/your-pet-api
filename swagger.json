@@ -325,6 +325,30 @@
         }
       }
     },
+
+  "/api/notices/favorites": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get own favotite notices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - get own favotite notices"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
     "/api/notices/byOwner": {
       "get": {
         "tags": ["Notices"],
@@ -347,6 +371,8 @@
         }
       }
     },
+
+  
     "/api/notices/": {
       "post": {
         "tags": ["Notices"],
@@ -694,8 +720,7 @@
         "properties": {
           "avatarURL": {
             "type": "string"
-                      }
-          
+          }
         }
       },
 

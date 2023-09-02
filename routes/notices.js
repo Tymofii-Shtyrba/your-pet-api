@@ -8,6 +8,7 @@ const {
   addNoticeToFavorite,
   deleteNoticeFromFavorites,
   createNotice,
+  getOwnFavoriteNotices,
 } = require('../controllers/notices');
 
 const {
@@ -19,6 +20,7 @@ const {
 } = require('../middlewares');
 
 router.get('/byOwner', isValidToken, getOwnNotice);
+router.get('/favorites', isValidToken, getOwnFavoriteNotices);
 router.get('/', getNotices);
 
 router.post(

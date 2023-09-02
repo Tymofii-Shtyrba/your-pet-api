@@ -37,12 +37,10 @@ const noticeSchema = new Schema(
       type: String,
       default: null,
     },
-
     publicId: {
       type: String,
       default: null,
     },
-
     location: {
       type: String,
       required: [true, 'The location name is required'],

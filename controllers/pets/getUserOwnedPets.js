@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const { Pet } = require('../../models');
 
 const getUserOwnedPets = async (req, res, next) => {
