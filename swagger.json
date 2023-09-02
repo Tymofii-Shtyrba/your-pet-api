@@ -326,7 +326,7 @@
       }
     },
 
-  "/api/notices/favorites": {
+    "/api/notices/favorites": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get own favotite notices",
@@ -372,7 +372,6 @@
       }
     },
 
-  
     "/api/notices/": {
       "post": {
         "tags": ["Notices"],
@@ -731,10 +730,6 @@
             "type": "string",
             "description": "User's name"
           },
-          "password": {
-            "type": "string",
-            "description": "User's password"
-          },
           "email": {
             "type": "string",
             "description": "User's email"
@@ -767,10 +762,6 @@
           "name": {
             "type": "string",
             "description": "User's name"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password"
           },
           "email": {
             "type": "string",
