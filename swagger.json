@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Your Pets API",
-    "description": "Swagger documentation for Your Pets API",
+    "title": "my pets API",
+    "description": "Swagger documentation for my pets API",
     "version": "1.0"
   },
   "tags": [
@@ -19,8 +19,11 @@
       "description": "Endpoints for work with notices information"
     }
   ],
-  "servers": [{ "url": "https://your-pet-api-a9zk.onrender.com" }],
-
+  "servers": [
+    {
+      "url": "https://your-pet-api-a9zk.onrender.com"
+    }
+  ],
   "paths": {
     "/api/users/register": {
       "post": {
@@ -65,7 +68,6 @@
         }
       }
     },
-
     "/api/users/login": {
       "post": {
         "tags": ["Users"],
@@ -109,7 +111,6 @@
         }
       }
     },
-
     "/api/users/logout": {
       "post": {
         "tags": ["Users"],
@@ -120,7 +121,6 @@
             "bearerAuth": []
           }
         ],
-
         "responses": {
           "204": {
             "description": "Success logout",
@@ -141,7 +141,6 @@
         }
       }
     },
-
     "/api/users/avatars": {
       "post": {
         "tags": ["Users"],
@@ -156,7 +155,13 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/AvatarUpdate"
+                "type": "object",
+                "properties": {
+                  "userImgUrl": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
@@ -187,7 +192,6 @@
         }
       }
     },
-
     "/api/users/update": {
       "patch": {
         "tags": ["Users"],
@@ -231,34 +235,10 @@
         }
       }
     },
-
-    "/api/users/current": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get current user information",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success - current user information"
-          },
-          "401": {
-            "description": "Unauthorized access"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-
     "/api/pets": {
       "post": {
         "tags": ["Pets"],
-        "summary": "Add user pats",
+        "summary": "Add user pets",
         "parameters": [],
         "security": [
           {
@@ -266,7 +246,7 @@
           }
         ],
         "requestBody": {
-          "description": "User pats's object",
+          "description": "User's pets object",
           "required": true,
           "content": {
             "multipart/form-data": {
@@ -318,11 +298,10 @@
         }
       }
     },
-
     "/api/pets/{petId}": {
       "delete": {
         "tags": ["Pets"],
-        "summary": "Success delete pet",
+        "summary": "Delete pet by Id",
         "security": [
           {
             "bearerAuth": []
@@ -350,51 +329,17 @@
             "description": "Server error"
           }
         }
-      },
-      "get": {
-        "tags": ["Pets"],
-        "summary": "Success get own pets",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "Pet id to get",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-
-        "responses": {
-          "200": {
-            "description": "Success - get own pets"
-          },
-          "401": {
-            "description": "Unauthorized access"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
       }
     },
-
     "/api/notices/byOwner": {
       "get": {
         "tags": ["Notices"],
-        "summary": "Success get own notices",
+        "summary": "Get own notices",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-
         "responses": {
           "200": {
             "description": "Success - get own notices"
@@ -408,7 +353,6 @@
         }
       }
     },
-
     "/api/notices/": {
       "post": {
         "tags": ["Notices"],
@@ -423,13 +367,14 @@
           "description": "User notices object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AddUserNoticesRequest"
               }
             }
           }
         },
+
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -451,67 +396,71 @@
           }
         }
       },
-     "get": {
-  "tags": ["Notices"],
-  "summary": "Get notices based on filters",
-  "parameters": [
-    {
-      "name": "category",
-      "in": "query",
-      "description": "Filter notices by category",
-      "schema": {
-        "type": "string",
-        "enum": ["sell", "lost/found", "in good hands", "favorite ads", "my ads"]
-      }
-    },
-    {
-      "name": "date",
-      "in": "query",
-      "description": "Filter notices by date range",
-      "schema": {
-        "type": "string",
-        "enum": ["lessThan1", "1to2", "moreThan2"]
-      }
-    },
-    {
-      "name": "sex",
-      "in": "query",
-      "description": "Filter notices by sex",
-      "schema": {
-        "type": "string",
-        "enum": ["male", "female"]
-      }
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": "Successful response with notices",
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GetNoticeResponse"
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get notices based on filters",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter notices by category",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "sell",
+                "lost-found",
+                "in-good-hands",
+                "favorite ads",
+                "my ads"
+              ]
             }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Filter notices by date range",
+            "schema": {
+              "type": "string",
+              "enum": ["lessThan1", "1to2", "moreThan2"]
+            }
+          },
+          {
+            "name": "sex",
+            "in": "query",
+            "description": "Filter notices by sex",
+            "schema": {
+              "type": "string",
+              "enum": ["male", "female"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with notices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetNoticeResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notices found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
     },
-    "404": {
-      "description": "No notices found"
-    },
-    "500": {
-      "description": "Internal server error"
-    }
-  }
-}
-
-    },
-
     "/api/notices/{noticeId}": {
       "get": {
         "tags": ["Notices"],
-        "summary": "Success get notice",
+        "summary": "Get notice by Id",
         "security": [
           {
             "bearerAuth": []
@@ -528,7 +477,6 @@
             "description": "get notice"
           }
         ],
-
         "responses": {
           "200": {
             "description": "Success - get notice"
@@ -543,16 +491,26 @@
       },
       "delete": {
         "tags": ["Notices"],
-        "summary": "Success remove notice",
+        "summary": "Success delete notice",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "get notice"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success - remove notice"
+            "description": "Success - delete notice"
           },
           "401": {
             "description": "Unauthorized access"
@@ -563,11 +521,10 @@
         }
       }
     },
-
     "/api/notices/add/{noticeId}": {
       "patch": {
         "tags": ["Notices"],
-        "summary": "Success add notice to favorite",
+        "summary": "Add notice to favorite",
         "security": [
           {
             "bearerAuth": []
@@ -584,17 +541,6 @@
             "description": "add notes to favorite"
           }
         ],
-
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/addNoticeToFavorite"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success - add notice to favirite"
@@ -611,7 +557,7 @@
     "/api/notices/remove/{noticeId}": {
       "patch": {
         "tags": ["Notices"],
-        "summary": "Success remove notice from favorite",
+        "summary": "Delete notice from favorite",
         "security": [
           {
             "bearerAuth": []
@@ -625,20 +571,9 @@
             "schema": {
               "type": "string"
             },
-            "description": "remove notice from favorites"
+            "description": "Delete notice from favorites"
           }
         ],
-
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deleteNoticeFromFavorites"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success - add notice to favirite"
@@ -653,7 +588,6 @@
       }
     }
   },
-
   "components": {
     "schemas": {
       "RegistrationRequest": {
@@ -695,11 +629,16 @@
           }
         },
         "example": [
-          { "email": "ukr@gmail.com", "userId": "64f06ce35b8b9a435566ff84" },
-          { "email": "ukr@gmail.com", "userId": "64eb808f0c5996cf247c25a9" }
+          {
+            "email": "ukr@gmail.com",
+            "userId": "64f06ce35b8b9a435566ff84"
+          },
+          {
+            "email": "ukr@gmail.com",
+            "userId": "64eb808f0c5996cf247c25a9"
+          }
         ]
       },
-
       "AuthenticateRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -734,27 +673,16 @@
           }
         },
         "example": [
-          { "email": "ukr@gmail.com", "userId": "64f06ce35b8b9a435566ff84" },
-          { "email": "ukr@gmail.com", "userId": "64eb808f0c5996cf247c25a9" }
+          {
+            "email": "ukr@gmail.com",
+            "userId": "64f06ce35b8b9a435566ff84"
+          },
+          {
+            "email": "ukr@gmail.com",
+            "userId": "64eb808f0c5996cf247c25a9"
+          }
         ]
       },
-
-      "AvatarUpdate": {
-        "type": "object",
-        "properties": {
-          "avatar": {
-            "type": "string",
-            "format": "binary",
-            "description": "Avatar image file to upload"
-          }
-        },
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
-      },
-
       "UpdateUserRequest": {
         "type": "object",
         "properties": {
@@ -792,7 +720,6 @@
           "city": "Kyiv"
         }
       },
-
       "UpdateUserResponse": {
         "type": "object",
         "properties": {
@@ -830,30 +757,15 @@
           "city": "Kyiv"
         }
       },
-
-      "Current": {
-        "type": "object",
-
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
-      },
-
       "AddUserPetsRequest": {
         "type": "object",
-        "required": ["category", "name", "date", "type", "sex", "owner"],
+        "required": ["name", "date", "type", "comments"],
         "properties": {
           "image": {
+
             "type": "string",
-            "format": "binary"
-          },
-          "category": {
-            "type": "string",
-            "enum": ["your pet", "sell", "lost/found", "in good hands"],
-            "description": "Category of the pet",
-            "example": "your pet"
+            "format": "binary",
+            "description": "Image file of the pet"
           },
           "name": {
             "type": "string",
@@ -862,40 +774,14 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
-            "description": "Date of the pet's information",
-            "example": "2023-08-29T12:00:00Z"
+            "format": "date",
+            "description": "Date of the pet's information in DD-MM-YYYY format",
+            "example": "29-08-2023"
           },
           "type": {
             "type": "string",
             "description": "Type of the pet",
             "example": "Dog"
-          },
-          "imageURL": {
-            "type": "string",
-            "description": "URL of the pet's image",
-            "example": "https://example.com/pet-image.jpg"
-          },
-          "publicId": {
-            "type": "string",
-            "description": "Public ID of the pet's image",
-            "example": "abcdef123"
-          },
-          "sex": {
-            "type": "string",
-            "enum": ["female", "male"],
-            "description": "Sex of the pet",
-            "example": "female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location of the pet",
-            "example": "New York"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of the pet (applicable for 'sell' category)",
-            "example": 500
           },
           "comments": {
             "type": "string",
@@ -903,31 +789,13 @@
             "maxLength": 120,
             "description": "Additional comments about the pet",
             "example": "Very friendly and playful"
-          },
-          "owner": {
-            "type": "string",
-            "format": "uuid",
-            "description": "ID of the pet's owner (User's ID)",
-            "example": "1234567890abcdef"
           }
-        },
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
         }
       },
-
       "AddUserPetsResponse": {
         "type": "object",
-        "required": ["category", "name", "date", "type", "sex", "owner"],
+        "required": ["name", "date", "type", "comments","imageURL", "publicId", "owner"],
         "properties": {
-          "category": {
-            "type": "string",
-            "enum": ["your pet", "sell", "lost/found", "in good hands"],
-            "description": "Category of the pet",
-            "example": "your pet"
-          },
           "name": {
             "type": "string",
             "description": "Name of the pet",
@@ -935,14 +803,21 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
-            "description": "Date of the pet's information",
-            "example": "2023-08-29T12:00:00Z"
+            "format": "date",
+            "description": "Date of the pet's information in DD-MM-YYYY format",
+            "example": "29-08-2023"
           },
           "type": {
             "type": "string",
             "description": "Type of the pet",
             "example": "Dog"
+          },
+          "comments": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 120,
+            "description": "Additional comments about the pet",
+            "example": "Very friendly and playful"
           },
           "imageURL": {
             "type": "string",
@@ -954,63 +829,28 @@
             "description": "Public ID of the pet's image",
             "example": "abcdef123"
           },
-          "sex": {
-            "type": "string",
-            "enum": ["female", "male"],
-            "description": "Sex of the pet",
-            "example": "female"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location of the pet",
-            "example": "New York"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of the pet (applicable for 'sell' category)",
-            "example": 500
-          },
-          "comments": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 120,
-            "description": "Additional comments about the pet",
-            "example": "Very friendly and playful"
-          },
           "owner": {
             "type": "string",
             "format": "uuid",
             "description": "ID of the pet's owner (User's ID)",
             "example": "1234567890abcdef"
           }
-        },
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
         }
       },
-
       "AddUserNoticesRequest": {
         "type": "object",
-        "required": [
-          "category",
-          "title",
-          "name",
-          "date",
-          "type",
-          "sex",
-          "imageURL",
-          "location",
-          "price",
-          "comment"
-        ],
+        "required": ["category", "title", "name", "type", "sex", "location"],
         "properties": {
           "category": {
             "type": "string",
-            "enum": ["your pet", "sell", "lost/found", "in good hands"],
+            "enum": ["my pet", "sell", "lost-found", "in-good-hands"],
             "description": "Category of the pet",
-            "example": "your pet"
+            "example": "my pet"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "description": "Image file of the pet"
           },
           "title": {
             "type": "string",
@@ -1026,7 +866,7 @@
             "type": "string",
             "format": "date-time",
             "description": "Date of the pet's information",
-            "example": "2023-08-29T12:00:00Z"
+            "example": "'DD-MM-YYYY'"
           },
           "type": {
             "type": "string",
@@ -1040,37 +880,13 @@
             "example": "female"
           },
 
-          "imageURL": {
-            "type": "string",
-            "description": "URL of the pet's image",
-            "example": "https://example.com/pet-image.jpg"
-          },
-
           "location": {
             "type": "string",
             "description": "Location of the pet",
             "example": "Kyiv"
-          },
-          "price": {
-            "type": "number",
-            "description": "Price of the pet (applicable for 'sell' category)",
-            "example": 500
-          },
-          "comments": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 120,
-            "description": "Additional comments about the pet",
-            "example": "Very friendly and playful"
           }
-        },
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
         }
       },
-
       "AddUserNoticesResponse": {
         "type": "object",
         "required": [
@@ -1089,9 +905,9 @@
         "properties": {
           "category": {
             "type": "string",
-            "enum": ["your pet", "sell", "lost/found", "in good hands"],
+            "enum": ["my pet", "sell", "lost-found", "in-good-hands"],
             "description": "Category of the pet",
-            "example": "your pet"
+            "example": "my pet"
           },
           "title": {
             "type": "string",
@@ -1120,13 +936,11 @@
             "description": "Sex of the pet",
             "example": "female"
           },
-
           "imageURL": {
             "type": "string",
             "description": "URL of the pet's image",
             "example": "https://example.com/pet-image.jpg"
           },
-
           "location": {
             "type": "string",
             "description": "Location of the pet",
@@ -1147,14 +961,8 @@
           "publicId": {
             "type": "string"
           }
-        },
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
         }
       },
-
       "GetNoticeResponse": {
         "type": "object",
         "properties": {
@@ -1163,12 +971,12 @@
           },
           "category": {
             "type": "string",
-            "enum": ["sell", "lost/found", "in good hands"],
+            "enum": ["sell", "lost-found", "in-good-hands"],
             "example": "sell"
           },
           "title": {
             "type": "string",
-            "example": "your pet"
+            "example": "my pet"
           },
           "name": {
             "type": "string",
@@ -1208,25 +1016,6 @@
             "type": "string",
             "example": "Example comment"
           }
-        }
-      },
-
-      "addNoticeToFavorite": {
-        "type": "object",
-
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
-      },
-      "deleteNoticeFromFavorites": {
-        "type": "object",
-
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
         }
       }
     },
