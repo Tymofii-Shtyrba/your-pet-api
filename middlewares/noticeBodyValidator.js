@@ -7,11 +7,11 @@ const schema = new Joi.object({
     .required(),
   title: Joi.string().min(2).max(30).required(),
   name: Joi.string().min(2).max(16).required(),
-  date: Joi.date().format('DD-MM-YYYY').required(),
+  date: Joi.date().format('DD.MM.YYYY').required(),
   type: Joi.string().required(),
   sex: Joi.string().valid('male', 'female').required(),
   location: Joi.string().required(),
-  comment: Joi.string().max(120),
+  comments: Joi.string().max(120),
 });
 
 const isValidNoticeBody = (req, res, next) => {
