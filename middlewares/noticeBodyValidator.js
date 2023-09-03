@@ -9,6 +9,7 @@ const schema = new Joi.object({
   name: Joi.string().min(2).max(16).required(),
   date: Joi.date().format('DD.MM.YYYY').required(),
   type: Joi.string().required(),
+  price: Joi.string(),
   sex: Joi.string().valid('male', 'female').required(),
   location: Joi.string().required(),
   comments: Joi.string().max(120),
