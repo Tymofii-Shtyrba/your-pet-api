@@ -5,8 +5,8 @@ const {
   noticeDelete,
   getNoticeById,
   getOwnNotice,
-  addNoticeToFavorite,
-  deleteNoticeFromFavorites,
+  toggleNoticeInFavorites,
+
   createNotice,
   getOwnFavoriteNotices,
 } = require('../controllers/notices');
@@ -33,7 +33,6 @@ router.post(
 
 router.get('/:noticeId', isValidNoticeId, getNoticeById);
 router.delete('/:noticeId', isValidToken, isValidNoticeId, noticeDelete);
-router.patch('/add/:noticeId', isValidToken, addNoticeToFavorite);
-router.patch('/remove/:noticeId', isValidToken, deleteNoticeFromFavorites);
+router.patch('/add/:noticeId', isValidToken, toggleNoticeInFavorites);
 
 module.exports = router;
