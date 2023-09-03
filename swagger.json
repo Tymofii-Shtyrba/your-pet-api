@@ -543,7 +543,7 @@
     "/api/notices/add/{noticeId}": {
       "patch": {
         "tags": ["Notices"],
-        "summary": "Add notice to favorite",
+        "summary": "Add and remove notice to favorite",
         "security": [
           {
             "bearerAuth": []
@@ -557,12 +557,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "add notes to favorite"
+            "description": "toggle notes to favorite"
           }
         ],
         "responses": {
           "200": {
-            "description": "Success - add notice to favirite"
+            "description": "Success - toggle notice to favirite"
           },
           "401": {
             "description": "Unauthorized access"
@@ -572,40 +572,7 @@
           }
         }
       }
-    },
-    "/api/notices/remove/{noticeId}": {
-      "patch": {
-        "tags": ["Notices"],
-        "summary": "Delete notice from favorite",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Delete notice from favorites"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success - add notice to favirite"
-          },
-          "401": {
-            "description": "Unauthorized access"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    }
+    }   
   },
   "components": {
     "schemas": {
