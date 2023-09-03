@@ -955,9 +955,9 @@
             "example": "Kyiv"
           },
           "price": {
-            "type": "number",
+            "type": "string",
             "description": "Price of the pet (applicable for 'sell' category)",
-            "example": 500
+            "example": "500"
           },
           "comments": {
             "type": "string",
@@ -1017,7 +1017,7 @@
             "example": "Kyiv"
           },
           "price": {
-            "type": "number",
+            "type": "string",
             "example": "100"
           },
           "comment": {
