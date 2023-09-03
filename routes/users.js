@@ -15,13 +15,14 @@ const {
   isValidToken,
   isValidLoginData,
   upload,
+  isValidToken2,
 } = require('../middlewares');
 
 router.post('/register', isValidUserBody, register);
 
 router.post('/login', isValidLoginData, login);
 
-router.patch('/update', isValidToken, isValidUserUpdateBody, updateUser);
+router.patch('/update', isValidToken2, isValidUserUpdateBody, updateUser);
 
 router.post('/logout', isValidToken, logout);
 
