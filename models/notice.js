@@ -46,7 +46,7 @@ const noticeSchema = new Schema(
       required: [true, 'The location name is required'],
     },
     price: {
-      type: Number,
+      type: String,
       default: null,
     },
     comments: {
