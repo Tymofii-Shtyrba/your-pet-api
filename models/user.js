@@ -20,12 +20,13 @@ const userSchema = new Schema(
       default: null,
     },
     birthday: {
-      type: Date,
+      type: String,
       default: null,
     },
 
     phone: {
       type: String,
+      default: null,
     },
 
     city: {

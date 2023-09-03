@@ -702,7 +702,7 @@
             "description": "User's email"
           },
           "birthday": {
-            "type": "number",
+            "type": "string",
             "description": "User's birthday"
           },
           "phone": {
@@ -735,7 +735,7 @@
             "description": "User's email"
           },
           "birthday": {
-            "type": "number",
+            "type": "string",
             "description": "User's birthday"
           },
           "phone": {
