@@ -1,11 +1,10 @@
 const moment = require('moment');
-const { Notice } = require('../../models');
+const Notice = require('../../models/notice');
 const createError = require('http-errors');
 
 const getNotices = async (req, res, next) => {
   try {
     const { title, category, page, limit, date, sex } = req.query;
-    console.log(category);
 
     const conditions = {};
 
@@ -45,15 +44,27 @@ const getNotices = async (req, res, next) => {
 
     const regex = new RegExp(title, 'i');
 
-    const result = await Notice.find({ title: regex, ...conditions })
+    const totalCountQuery = { title: regex, ...conditions };
+
+    if (category) {
+      totalCountQuery.category = category;
+    }
+
+    const totalCount = await Notice.countDocuments(totalCountQuery);
+    const paginationLimit = parseInt(req.query.limit);
+
+    const totalPages =
+      totalCount === 0 ? 1 : Math.ceil(totalCount / paginationLimit);
+
+    const pets = await Notice.find({ title: regex, ...conditions })
       .skip((page - 1) * limit)
       .limit(limit);
 
-    if (result.length === 0) {
+    if (pets.length === 0) {
       return next(createError(404, 'No pets found'));
     }
 
-    res.status(200).json(result);
+    res.status(200).json({ pets, page, total: totalPages });
   } catch (error) {
     next(error);
   }
