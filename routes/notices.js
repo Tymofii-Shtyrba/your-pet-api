@@ -31,8 +31,8 @@ router.post(
   createNotice
 );
 
-router.get('/:noticeId', isValidNoticeId, getNoticeById);
-router.delete('/:noticeId', isValidToken, isValidNoticeId, noticeDelete);
+router.get('/:noticeId', isValidNoticeId, isValidToken, getNoticeById);
+router.delete('/:noticeId', isValidNoticeId, isValidToken, noticeDelete);
 router.patch('/add/:noticeId', isValidToken, toggleNoticeInFavorites);
 
 module.exports = router;
