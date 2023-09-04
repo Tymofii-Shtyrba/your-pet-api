@@ -851,9 +851,9 @@
         "properties": {
           "category": {
             "type": "string",
-            "enum": ["my pet", "sell", "lost-found", "in-good-hands"],
+            "enum": [ "sell", "lost-found", "in-good-hands"],
             "description": "Category of the pet",
-            "example": "my pet"
+            "example": "sell"
           },
           "image": {
             "type": "string",
